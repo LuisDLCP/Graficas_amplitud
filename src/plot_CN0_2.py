@@ -13,7 +13,7 @@
 # file.
 # INPUT FILES: MeasEpoch2 & ChannelStatus ASCCI FILES.   
 # Author: Luis D.
-# :)
+# :):)
 from matplotlib.backends.backend_pdf import PdfPages
 from septentrio_tools import ProcessSBF as sbf
 from septentrio_tools import PlotsISMR
