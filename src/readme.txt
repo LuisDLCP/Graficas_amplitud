@@ -1,5 +1,6 @@
 ***************************************
                README
+	       v 2.0
 ***************************************
 What's about?
 --------------
@@ -12,7 +13,7 @@ frequency: GPS & GALILEO (default)
 How it works?
     DIR="/home/luis/Desktop/Proyects_Files/LISN/GPSs/Tareas/Graficas_desvanecimientos"
     1) Place the INPUT files in the folder: DIR/Input_data/Data_set/
-    2) Run the script plot_CN0_2.py 
+    2) Run the script plot_CN0.py 
     3) The OUTPUT files will be saved in the folder: DIR/Output_files/
 -------------
 Dependencies
