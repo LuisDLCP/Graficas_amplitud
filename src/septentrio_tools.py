@@ -715,15 +715,17 @@ class PlotsISMR():
 
                             for k in range(2):
                                 df3_cn0 = self.get_variable(prn_value, var=freq_n+f"_{k+1}")
-                                ax.plot(df3_cn0.index, df3_cn0.values, '.', color=colors1[k], markersize=2)
+                                df3_cn0 = df3_cn0.sort_index().asfreq("T")
+                                ax.plot(df3_cn0.index, df3_cn0.values, '-', color=colors1[k], markersize=2)
                                 # Plot the strip day/night
                                 ax.set_facecolor(color="lightgrey")
                                 ax.axvspan(fecha_morning_first, fecha_morning_last, color="white") # strip morning/night
                             
                             # Plot elevation info
                             df2_elev = self.get_variable(prn_value, var="Elev")
+                            df2_elev = df2_elev.sort_index().asfreq("T") # Resampling each minute
                             color2 = "orange"
-                            ax2.plot(df2_elev.index, df2_elev.values, '.', color=color2, markersize=1)
+                            ax2.plot(df2_elev.index, df2_elev.values, '-', color=color2, markersize=1)
                             
                             # Annotate the prn in the subplot
                             x_location = fecha2 + pd.Timedelta(minutes=30)
