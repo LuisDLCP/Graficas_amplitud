@@ -241,7 +241,7 @@ class ProcessSBF(ProcessISMR):
             #    elif freq == "B3": return "Sig3"
             #    else: return np.nan
             elif const == "GEO": # SBAS
-                if freq == "L1CA": return "Sig1"
+                if freq == "L1" or freq == "L1CA": return "Sig1"
                 elif freq == "L5": return "Sig2"
                 else: return np.nan
             #elif const == "QZS": # const name might change, verify!
