@@ -18,6 +18,7 @@ from matplotlib.backends.backend_pdf import PdfPages
 from septentrio_tools import ProcessSBF as sbf
 from septentrio_tools import PlotsISMR
 import glob 
+import sys
 import os 
 
 root_path = "/home/luis/Desktop/Proyects_Files/LISN/GPSs/Tareas/Graficas_amplitud/"
@@ -56,24 +57,33 @@ def main():
             # Get the df
             file_cn = input_files_path + file_i + "MeasEpoch2.txt"
             file_elv =  input_files_path + file_i + "ChannelStatus.txt"
-            df = process_dataframe(file_cn, file_elv)
             
-            # Plot
-            #input_file_name = file_i[len(input_files_path):]
-            g1 = PlotsISMR(dataframe=df, ismr_file_name=file_i)
-            # -> Create an empty pdf file to save the plots
-            figure_name = g1.get_output_figure_name() + "_CN0.pdf" # e.g. ljic_200806_CN0.pdf
-            pdf = PdfPages(output_files_path + figure_name)
-            # -> Generate the plots
-            for const, freqs in const_freq_list.items():
-                for freq in freqs:
-                    g1.plotCN0_2(const=const, freq=freq, pdf=pdf)
-            pdf.close()
+            if os.path.exists(file_cn) and os.path.exists(file_elv):   
+                df = process_dataframe(file_cn, file_elv)
+                
+                # Plot
+                #input_file_name = file_i[len(input_files_path):]
+                g1 = PlotsISMR(dataframe=df, ismr_file_name=file_i)
+                # -> Create an empty pdf file to save the plots
+                figure_name = g1.get_output_figure_name() + "_CN0.pdf" # e.g. ljic_200806_CN0.pdf
+                pdf = PdfPages(output_files_path + figure_name)
+                # -> Generate the plots
+                for const, freqs in const_freq_list.items():
+                    for freq in freqs:
+                        g1.plotCN0_2(const=const, freq=freq, pdf=pdf)
+                pdf.close()
 
-            # Move input files to a permanent directory
-            #os.rename(file_cn, input_files_path_op + file_i + "MeasEpoch2.txt")
-            #os.rename(file_elv, input_files_path_op + file_i + "ChannelStatus.txt")
-    
+                # Move input files to a permanent directory
+                #os.rename(file_cn, input_files_path_op + file_i + "MeasEpoch2.txt")
+                #os.rename(file_elv, input_files_path_op + file_i + "ChannelStatus.txt")
+            else:
+                if os.path.exists(file_cn): 
+                    file_target = file_elv[len(input_files_path):]
+                else:
+                    file_target = file_cn[len(input_files_path):]
+                print("!!!")
+                print(f"Input file '{file_target}' doesn't exist!")
+                print("!!!")
     return 'Ok'
 
 if __name__ == '__main__':
